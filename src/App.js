@@ -14,7 +14,28 @@ class App extends React.Component {
     cardTrunfo: false,
     hasTrunfo: false,
     isSaveButtonDisabled: true,
-    onSaveButtonClick: (() => {}),
+  };
+
+  handleSaveButtonDisabled = () => {
+    const { cardName, cardDescription, cardImage, cardRare, cardAttr1, cardAttr2,
+      cardAttr3 } = this.state;
+    const infoArray = [cardName, cardDescription, cardImage, cardRare];
+    const numberArray = [Math.floor(cardAttr1),
+      Math.floor(cardAttr2), Math.floor(cardAttr3)];
+    const maxAttr = 90;
+    const maxTotal = 210;
+    if (infoArray.some((info) => info === '')
+    || numberArray.some((info) => Math.floor(info) > maxAttr)
+    || numberArray.some((info) => Math.floor(info) < 0)
+    || numberArray.reduce((acc, cur) => acc + cur, 0) > maxTotal) {
+      this.setState({
+        isSaveButtonDisabled: true,
+      });
+    } else {
+      this.setState({
+        isSaveButtonDisabled: false,
+      });
+    }
   };
 
   handleChange = (event) => {
@@ -27,8 +48,10 @@ class App extends React.Component {
     }
     this.setState({
       [key]: value,
-    });
+    }, () => this.handleSaveButtonDisabled());
   };
+
+  handleButtonClick = () => {};
 
   render() {
     const {
@@ -42,7 +65,6 @@ class App extends React.Component {
       cardTrunfo,
       hasTrunfo,
       isSaveButtonDisabled,
-      onSaveButtonClick,
     } = this.state;
     return (
       <div>
@@ -59,7 +81,7 @@ class App extends React.Component {
           hasTrunfo={ hasTrunfo }
           isSaveButtonDisabled={ isSaveButtonDisabled }
           onInputChange={ this.handleChange }
-          onSaveButtonClick={ onSaveButtonClick }
+          onSaveButtonClick={ this.handleButtonClick }
         />
         <Card
           cardName={ cardName }

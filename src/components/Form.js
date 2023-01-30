@@ -19,6 +19,7 @@ class Form extends Component {
       <section>
         <h1> Adicione Nova Carta </h1>
         <label htmlFor="name">
+          <h1>{hasTrunfo}</h1>
           Nome:
           <input
             data-testid="name-input"
