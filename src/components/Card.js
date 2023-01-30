@@ -18,14 +18,20 @@ class Card extends Component {
     }
     return (
       <div>
+        <div>
+          <h1> Pré-Visualização </h1>
+        </div>
         <section>
+          Nome:
           <h1 data-testid="name-card">{cardName}</h1>
         </section>
         <section>
+          Imagem:
           <img src={ cardImage } alt={ cardName } data-testid="image-card" />
         </section>
         <section>
-          <h1 data-testid="description-card">{cardDescription}</h1>
+          Descrição:
+          <h3 data-testid="description-card">{cardDescription}</h3>
         </section>
         <section data-testid="attr1-card">
           Attr01..........
@@ -39,6 +45,7 @@ class Card extends Component {
           Attr03..........
           {cardAttr3}
         </section>
+        Raridade:
         <section data-testid="rare-card">{cardRare}</section>
         {trunfoCheck}
       </div>
@@ -55,7 +62,6 @@ Card.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
-  hasTrunfo: PropTypes.bool.isRequired,
 };
 
 export default Card;
