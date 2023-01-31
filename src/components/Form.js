@@ -13,28 +13,8 @@ class Form extends Component {
       cardTrunfo,
       isSaveButtonDisabled,
       onInputChange,
-      onSaveButtonClick,
-      cardsSaved } = this.props;
+      onSaveButtonClick } = this.props;
 
-    const checkSuperTrunfo = cardsSaved
-      ? cardsSaved.some((card) => card.hasTrunfo === true) : true;
-    let trunfo;
-    if (!checkSuperTrunfo) {
-      trunfo = (
-        <label htmlFor="trunfo">
-          <input
-            data-testid="trunfo-input"
-            type="checkbox"
-            name="cardTrunfo"
-            checked={ cardTrunfo }
-            onChange={ onInputChange }
-          />
-          <h4>Super Trybe Trunfo</h4>
-        </label>
-      );
-    } else {
-      trunfo = <h4>Você já tem um Super Trunfo em seu baralho</h4>;
-    }
     return (
       <section>
         <h1> Adicione Nova Carta </h1>
@@ -110,7 +90,7 @@ class Form extends Component {
             <option>muito raro</option>
           </select>
         </label>
-        <label htmlFor="trunfo" style={ { display: 'none' } }>
+        <label htmlFor="trunfo">
           <input
             data-testid="trunfo-input"
             type="checkbox"
@@ -120,7 +100,6 @@ class Form extends Component {
           />
           <h4>Super Trybe Trunfo</h4>
         </label>
-        {trunfo}
         <button
           data-testid="save-button"
           disabled={ isSaveButtonDisabled }
@@ -145,17 +124,17 @@ Form.propTypes = {
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
-  cardsSaved: PropTypes.arrayOf(PropTypes.shape({
-    cardName: PropTypes.string.isRequired,
-    cardDescription: PropTypes.string.isRequired,
-    cardAttr1: PropTypes.string.isRequired,
-    cardAttr2: PropTypes.string.isRequired,
-    cardAttr3: PropTypes.string.isRequired,
-    cardImage: PropTypes.string.isRequired,
-    cardRare: PropTypes.string.isRequired,
-    cardTrunfo: PropTypes.bool.isRequired,
-    hasTrunfo: PropTypes.bool.isRequired,
-  })).isRequired,
+  // cardsSaved: PropTypes.arrayOf(PropTypes.shape({
+  //   cardName: PropTypes.string.isRequired,
+  //   cardDescription: PropTypes.string.isRequired,
+  //   cardAttr1: PropTypes.string.isRequired,
+  //   cardAttr2: PropTypes.string.isRequired,
+  //   cardAttr3: PropTypes.string.isRequired,
+  //   cardImage: PropTypes.string.isRequired,
+  //   cardRare: PropTypes.string.isRequired,
+  //   cardTrunfo: PropTypes.bool.isRequired,
+  //   hasTrunfo: PropTypes.string.isRequired,
+  // })).isRequired,
 };
 
 export default Form;

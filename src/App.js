@@ -14,7 +14,7 @@ class App extends React.Component {
     cardTrunfo: false,
     hasTrunfo: false,
     isSaveButtonDisabled: true,
-    cardsSaved: [{ }],
+    cardsSaved: [],
   };
 
   handleSaveButtonDisabled = () => {
@@ -76,10 +76,6 @@ class App extends React.Component {
       cardTrunfo,
       hasTrunfo,
     };
-    if (cardTrunfo) {
-      newCard.hasTrunfo = true;
-    }
-
     this.setState({
       cardsSaved: [...cardsSaved, newCard],
       cardName: '',
@@ -89,7 +85,6 @@ class App extends React.Component {
       cardAttr2: '0',
       cardAttr3: '0',
       cardRare: 'normal',
-      cardTrunfo: false,
     });
   };
 
