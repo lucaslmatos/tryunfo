@@ -14,9 +14,6 @@ class Card extends Component {
 
     return (
       <div>
-        <div>
-          <h1> Pré-Visualização </h1>
-        </div>
         <section>
           Nome:
           <h1 data-testid="name-card">{cardName}</h1>

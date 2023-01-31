@@ -108,6 +108,7 @@ class App extends React.Component {
       cardTrunfo,
       hasTrunfo,
       isSaveButtonDisabled,
+      cardsSaved,
     } = this.state;
     return (
       <div>
@@ -126,6 +127,7 @@ class App extends React.Component {
           onInputChange={ this.handleChange }
           onSaveButtonClick={ this.handleButtonClick }
         />
+        <h2>Pŕe Visualização</h2>
         <Card
           cardName={ cardName }
           cardDescription={ cardDescription }
@@ -136,20 +138,19 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
-        <section>
-          {this.cardsSaved?.foreach((card) => (
-            <Card
-              key={ card.cardDescription }
-              cardName={ card.cardName }
-              cardDescription={ card.cardDescription }
-              cardAttr1={ card.cardAttr1 }
-              cardAttr2={ card.cardAttr2 }
-              cardAttr3={ card.cardAttr3 }
-              cardImage={ card.cardImage }
-              cardRare={ card.cardRare }
-              cardTrunfo={ card.cardTrunfo }
-            />))}
-        </section>
+        <h2>Baralho</h2>
+        {cardsSaved?.map((card) => (
+          <Card
+            key={ card.cardDescription }
+            cardName={ card.cardName }
+            cardDescription={ card.cardDescription }
+            cardAttr1={ card.cardAttr1 }
+            cardAttr2={ card.cardAttr2 }
+            cardAttr3={ card.cardAttr3 }
+            cardImage={ card.cardImage }
+            cardRare={ card.cardRare }
+            cardTrunfo={ card.cardTrunfo }
+          />))}
       </div>
     );
   }
