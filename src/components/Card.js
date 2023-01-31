@@ -12,10 +12,6 @@ class Card extends Component {
       cardRare,
       cardTrunfo } = this.props;
 
-    let trunfoCheck;
-    if (cardTrunfo) {
-      trunfoCheck = <section data-testid="trunfo-card">Super Trunfo</section>;
-    }
     return (
       <div>
         <div>
@@ -47,7 +43,9 @@ class Card extends Component {
         </section>
         Raridade:
         <section data-testid="rare-card">{cardRare}</section>
-        {trunfoCheck}
+        {
+          cardTrunfo && <section data-testid="trunfo-card">Super Trunfo</section>
+        }
       </div>
     );
   }

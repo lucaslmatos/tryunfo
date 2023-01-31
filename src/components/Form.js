@@ -11,6 +11,7 @@ class Form extends Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      hasTrunfo,
       isSaveButtonDisabled,
       onInputChange,
       onSaveButtonClick } = this.props;
@@ -90,16 +91,20 @@ class Form extends Component {
             <option>muito raro</option>
           </select>
         </label>
-        <label htmlFor="trunfo">
-          <input
-            data-testid="trunfo-input"
-            type="checkbox"
-            name="cardTrunfo"
-            checked={ cardTrunfo }
-            onChange={ onInputChange }
-          />
-          <h4>Super Trybe Trunfo</h4>
-        </label>
+        {
+          hasTrunfo ? <h4>Você já tem um Super Trunfo em seu baralho</h4> : (
+            <label htmlFor="trunfo">
+              <input
+                data-testid="trunfo-input"
+                type="checkbox"
+                name="cardTrunfo"
+                checked={ cardTrunfo }
+                onChange={ onInputChange }
+              />
+              <h4>Super Trybe Trunfo</h4>
+            </label>
+          )
+        }
         <button
           data-testid="save-button"
           disabled={ isSaveButtonDisabled }
