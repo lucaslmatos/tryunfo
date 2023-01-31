@@ -11,15 +11,33 @@ class Form extends Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      hasTrunfo,
       isSaveButtonDisabled,
       onInputChange,
-      onSaveButtonClick } = this.props;
+      onSaveButtonClick,
+      cardsSaved } = this.props;
+
+    const checkSuperTrunfo = cardsSaved.some((card) => card.hasTrunfo === true);
+    let trunfo;
+    if (!checkSuperTrunfo) {
+      trunfo = (
+        <label htmlFor="trunfo">
+          <input
+            data-testid="trunfo-input"
+            type="checkbox"
+            name="cardTrunfo"
+            checked={ cardTrunfo }
+            onChange={ onInputChange }
+          />
+          <h4>Super Trybe Trunfo</h4>
+        </label>
+      );
+    } else {
+      trunfo = <h4>Você já tem um Super Trunfo em seu baralho</h4>;
+    }
     return (
       <section>
         <h1> Adicione Nova Carta </h1>
         <label htmlFor="name">
-          <h1>{hasTrunfo}</h1>
           Nome:
           <input
             data-testid="name-input"
@@ -91,16 +109,7 @@ class Form extends Component {
             <option>muito raro</option>
           </select>
         </label>
-        <label htmlFor="trunfo">
-          <input
-            data-testid="trunfo-input"
-            type="checkbox"
-            name="cardTrunfo"
-            checked={ cardTrunfo }
-            onChange={ onInputChange }
-          />
-          Super Trybe Trunfo
-        </label>
+        {trunfo}
         <button
           data-testid="save-button"
           disabled={ isSaveButtonDisabled }
@@ -122,10 +131,20 @@ Form.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
-  hasTrunfo: PropTypes.bool.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
+  cardsSaved: PropTypes.arrayOf(PropTypes.shape({
+    cardName: PropTypes.string.isRequired,
+    cardDescription: PropTypes.string.isRequired,
+    cardAttr1: PropTypes.string.isRequired,
+    cardAttr2: PropTypes.string.isRequired,
+    cardAttr3: PropTypes.string.isRequired,
+    cardImage: PropTypes.string.isRequired,
+    cardRare: PropTypes.string.isRequired,
+    cardTrunfo: PropTypes.bool.isRequired,
+    hasTrunfo: PropTypes.bool.isRequired,
+  })).isRequired,
 };
 
 export default Form;
