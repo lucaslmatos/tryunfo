@@ -14,7 +14,7 @@ class App extends React.Component {
     cardTrunfo: false,
     hasTrunfo: false,
     isSaveButtonDisabled: true,
-    cardsSaved: [],
+    cardsSaved: [{ }],
   };
 
   handleSaveButtonDisabled = () => {

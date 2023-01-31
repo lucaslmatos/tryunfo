@@ -16,7 +16,8 @@ class Form extends Component {
       onSaveButtonClick,
       cardsSaved } = this.props;
 
-    const checkSuperTrunfo = cardsSaved.some((card) => card.hasTrunfo === true);
+    const checkSuperTrunfo = cardsSaved
+      ? cardsSaved.some((card) => card.hasTrunfo === true) : true;
     let trunfo;
     if (!checkSuperTrunfo) {
       trunfo = (
@@ -108,6 +109,16 @@ class Form extends Component {
             <option>raro</option>
             <option>muito raro</option>
           </select>
+        </label>
+        <label htmlFor="trunfo" style={ { display: 'none' } }>
+          <input
+            data-testid="trunfo-input"
+            type="checkbox"
+            name="cardTrunfo"
+            checked={ cardTrunfo }
+            onChange={ onInputChange }
+          />
+          <h4>Super Trybe Trunfo</h4>
         </label>
         {trunfo}
         <button
