@@ -17,6 +17,7 @@ class App extends React.Component {
     cardsSaved: [],
     filterName: '',
     filterRare: 'todas',
+    filterTrunfo: false,
   };
 
   handleSaveButtonDisabled = () => {
@@ -126,30 +127,29 @@ class App extends React.Component {
     });
   };
 
+  handlefilterTrunfo = ({ target }) => {
+    this.setState({
+      filterTrunfo: target.checked,
+    });
+  };
+
   render() {
     const {
-      cardName,
-      cardDescription,
-      cardAttr1,
-      cardAttr2,
-      cardAttr3,
-      cardImage,
-      cardRare,
-      cardTrunfo,
-      hasTrunfo,
-      isSaveButtonDisabled,
-      cardsSaved,
-      filterName,
-      filterRare,
+      cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3, cardImage,
+      cardRare, cardTrunfo, hasTrunfo, isSaveButtonDisabled, cardsSaved, filterName,
+      filterRare, filterTrunfo,
     } = this.state;
 
     const filtCardsn = cardsSaved.filter((card) => card.cardName.includes(filterName));
     let filtCardsr;
-
     if (filterRare === 'todas') {
       filtCardsr = filtCardsn;
     } else {
       filtCardsr = filtCardsn.filter((card) => card.cardRare === filterRare);
+    }
+
+    if (filterTrunfo) {
+      filtCardsr = filtCardsn.filter((card) => card.cardTrunfo === true);
     }
 
     return (
@@ -188,6 +188,7 @@ class App extends React.Component {
             <label htmlFor="name">
               Nome:
               <input
+                disabled={ filterTrunfo }
                 type="text"
                 name="cardName"
                 placeholder="Digite aqui"
@@ -199,6 +200,7 @@ class App extends React.Component {
           <div>
             Raridade:
             <select
+              disabled={ filterTrunfo }
               data-testid="rare-filter"
               name="cardRare"
               value={ filterRare }
@@ -209,6 +211,17 @@ class App extends React.Component {
               <option>raro</option>
               <option>muito raro</option>
             </select>
+          </div>
+          <div>
+            <label htmlFor="Super Trunfo">
+              <input
+                data-testid="trunfo-filter"
+                type="checkbox"
+                name="cardTrunfo"
+                checked={ filterTrunfo }
+                onChange={ this.handlefilterTrunfo }
+              />
+            </label>
           </div>
         </nav>
         {filtCardsr?.map((card) => (
