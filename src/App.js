@@ -39,17 +39,19 @@ class App extends React.Component {
     }
   };
 
-  handleChange = (event) => {
-    const key = event.target.name;
+  handleChange = ({ target }) => {
+    const key = target.name;
     let value = '';
-    if (event.target.type === 'checkbox') {
-      value = event.target.checked;
+    if (target.type === 'checkbox') {
+      value = target.checked;
     } else {
-      value = event.target.value;
+      value = target.value;
     }
     this.setState({
       [key]: value,
-    }, () => this.handleSaveButtonDisabled());
+    }, () => {
+      this.handleSaveButtonDisabled();
+    });
   };
 
   handleButtonClick = () => {
@@ -63,7 +65,6 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
       hasTrunfo,
-      cardsSaved,
     } = this.state;
     const newCard = {
       cardName,
@@ -84,8 +85,11 @@ class App extends React.Component {
       });
     }
 
+    this.setState((anterior) => ({
+      cardsSaved: [...anterior.cardsSaved, newCard],
+    }));
+
     this.setState({
-      cardsSaved: [...cardsSaved, newCard],
       cardName: '',
       cardDescription: '',
       cardImage: '',
@@ -93,6 +97,18 @@ class App extends React.Component {
       cardAttr2: '0',
       cardAttr3: '0',
       cardRare: 'normal',
+      cardTrunfo: false,
+      isSaveButtonDisabled: true,
+    });
+  };
+
+  handleDelete = ({ target }) => {
+    const { cardsSaved } = this.state;
+    const notDeleted = cardsSaved.filter((card) => card.cardName !== target.id);
+    const hasTrunfo = notDeleted.some((card) => card.cardTrunfo === true);
+    this.setState({
+      cardsSaved: notDeleted,
+      hasTrunfo,
     });
   };
 
@@ -137,11 +153,12 @@ class App extends React.Component {
           cardImage={ cardImage }
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
+          deleteBtn="false"
         />
         <h2>Baralho</h2>
         {cardsSaved?.map((card) => (
           <Card
-            key={ card.cardDescription }
+            key={ card.cardName }
             cardName={ card.cardName }
             cardDescription={ card.cardDescription }
             cardAttr1={ card.cardAttr1 }
@@ -150,6 +167,8 @@ class App extends React.Component {
             cardImage={ card.cardImage }
             cardRare={ card.cardRare }
             cardTrunfo={ card.cardTrunfo }
+            deleteBtn="true"
+            onDeleteButtonClick={ this.handleDelete }
           />))}
       </div>
     );
